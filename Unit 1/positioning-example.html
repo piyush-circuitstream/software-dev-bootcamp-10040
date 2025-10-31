@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Positioning Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 2000px;
+            /* so we can scroll */
+            margin: 20px;
+        }
+
+        .container {
+            border: 2px dashed #999;
+            padding: 20px;
+            margin-bottom: 50px;
+            height: 200px;
+            position: relative;
+            /* important for absolute demo */
+        }
+
+        .box {
+            width: 150px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        /* 1. Static (default) */
+        .static {
+            background: steelblue;
+            position: static;
+            /* default */
+        }
+
+        /* 2. Relative */
+        .relative {
+            background: seagreen;
+            position: relative;
+            top: 20px;
+            /* moves down */
+            left: 40px;
+            /* moves right */
+        }
+
+        /* 3. Absolute */
+        .absolute {
+            background: darkorange;
+            position: absolute;
+            top: 10px;
+            /* relative to container */
+            right: 20px;
+        }
+
+        /* 4. Fixed */
+        .fixed {
+            background: crimson;
+            position: fixed;
+            top: 20px;
+            /* relative to viewport */
+            right: 20px;
+        }
+
+        /* 5. Sticky */
+        .sticky {
+            background: purple;
+            position: sticky;
+            top: 10px;
+            /* sticks at 10px from top */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSS Positioning Demo</h1>
+
+    <div class="container">
+        <div class="box static">Static</div>
+    </div>
+
+    <div class="container">
+        <div class="box relative">Relative</div>
+    </div>
+
+    <div class="container">
+        <div class="box absolute">Absolute</div>
+        <p>This container is the parent. The orange box is positioned relative to this container’s top-right corner.</p>
+    </div>
+
+    <div class="container">
+        <div class="box fixed">Fixed</div>
+        <p>Scroll down → the red box stays stuck at top-right of your screen.</p>
+    </div>
+
+    <div class="container" style="height: 500px; overflow-y: scroll;">
+        <div class="box sticky">Sticky</div>
+        <p>Scroll inside this box → the purple box stays stuck until the container ends.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+            facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit
+            amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor
+            sit amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Nulla facilisi.</p>
+        <p>Keep scrolling inside...</p>
+        <p>...the sticky box stays visible at the top.</p>
+    </div>
+
+</body>
+
+</html>

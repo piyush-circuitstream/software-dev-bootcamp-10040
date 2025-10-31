@@ -1,0 +1,37 @@
+/* p {
+    font-size: medium;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: brown;
+} */
+
+/* Specificity(Inline, ID, Class, Element) */
+
+
+/* (0,0,0,2)  */
+p h1 {
+    color: blue;
+}
+
+/* (0,0,0,1) */
+p {
+    color: rebeccapurple;
+}
+
+/* (0,0,1,0) */
+.sec1para {
+    color: chocolate
+}
+
+/* (0,1,0,0) */
+#firstPara {
+    color: aqua;
+}
+
+.butn-custom {
+    background-color: brown !important;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

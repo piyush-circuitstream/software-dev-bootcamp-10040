@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typography and Font Example</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            color: #4CAF50;
+            /* Green */
+            text-align: center;
+            text-transform: uppercase;
+            /* Uppercase text */
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: 700;
+            /* Bold */
+            color: #2196F3;
+            /* Blue */
+            text-align: left;
+        }
+
+        p {
+            font-size: 1em;
+            font-style: italic;
+            /* Italic text */
+            text-decoration: underline;
+            /* Underlined text */
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: disc;
+            /* Bullet points */
+            margin-left: 20px;
+        }
+
+        a {
+            color: #FF5722;
+            /* Orange */
+            text-decoration: none;
+            /* No underline */
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            /* Underline on hover */
+        }
+
+        /* Example of @font-face */
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url('https://example.com/fonts/mycustomfont.woff2') format('woff2');
+            /* Update with actual URL */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .custom-font {
+            font-family: 'MyCustomFont', sans-serif;
+            font-size: 1.2em;
+            color: #673AB7;
+            /* Deep Purple */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to My Typography Showcase</h1>
+
+    <h2>About This Page</h2>
+    <p>This page demonstrates various CSS properties for styling text and links. Below are some examples:</p>
+
+    <h2>Styled List</h2>
+    <ul>
+        <li>Color: <code>#333</code></li>
+        <li>Font Family: <code>'Roboto', sans-serif</code></li>
+        <li>Font Size: <code>1em</code></li>
+        <li>Font Style: <code>italic</code></li>
+        <li>Font Weight: <code>700</code> (bold)</li>
+    </ul>
+
+    <h2>Styled Links</h2>
+    <p>Check out my <a href="https://example.com" target="_blank">website</a> for more information.</p>
+
+    <h2>Custom Font Example</h2>
+    <p class="custom-font">This text uses a custom font loaded with @font-face.</p>
+
+</body>
+
+</html>

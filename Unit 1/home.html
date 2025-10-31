@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Semantic Elements Example</title>
+    <link rel="stylesheet" href="common-style/reset.css">
+    <style>
+        p {
+            color: green;
+        }
+    </style>
+    <link rel="stylesheet" href="common-style/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1 style="color: red;">My Blog</h1>
+    </header>
+
+    <img src="images/xyz.png">
+
+
+    <nav>
+        <a href="#home">Home</a> |
+        <a href="demo.html">Articles</a> |
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="articles">
+        <article>
+            <h2 style="font-size: medium;">First Post</h2>
+            <p class="sec1para" id="firstPara">This is an independent article that can stand on its own.</p>
+        </article>
+        <aside>
+            <p class="sec1para">Sponsored Ad: Buy cool gadgets here!</p>
+        </aside>
+    </section>
+
+    <details>
+        <summary>Read More</summary>
+        <p class="sec1para">Here are some extra details that you can expand or collapse.</p>
+    </details>
+
+    <footer>
+        <p>© 2025 My Blog. All rights reserved.</p>
+    </footer>
+
+    <!-- <button onclick="alert('Hello')">Click Me!</button> --> <!-- Inline Javascript-->
+
+
+    <button id="greenBtn">Click Me!</button>
+    <!--  Internal JavaScript 
+    <script>
+        document.getElementById("greenBtn").onclick = function () {
+            alert("Button Clicked from Internal JS!");
+        };
+    </script> -->
+
+    <!-- External Javascript -->
+    <script src="demo.js"></script>
+</body>
+
+</html>
