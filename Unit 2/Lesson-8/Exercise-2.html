@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Picture Fetcher</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        .voting {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cat Picture Fetcher</h1>
+        <input type="text" id="breed" placeholder="Enter breed (optional)">
+        <button id="fetch-button">Fetch Cat Picture</button>
+        <div id="cat-picture-container">
+            <img id="cat-picture" src="" alt="Cat Picture" style="display:none;">
+        </div>
+        <div class="voting">
+            <button id="upvote-button">Upvote</button>
+            <button id="downvote-button">Downvote</button>
+            <p id="vote-count">Votes: 0</p>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+
+        const API_KEY = 'YOUR_API_KEY';
+
+        const fetchButton = document.getElementById('fetch-button');
+        const catPicture = document.getElementById('cat-picture');
+        const breedInput = document.getElementById('breed');
+        const upvoteButton = document.getElementById('upvote-button');
+        const downvoteButton = document.getElementById('downvote-button');
+        const voteCountDisplay = document.getElementById('vote-count');
+
+        let voteCount = 0;
+        let currentImageId = '';
+
+        async function fetchCatPicture(breed) {
+            const url = breed ? `https://api.thecatapi.com/v1/images/search?breed_ids=${breed}` : 'https://api.thecatapi.com/v1/images/search';
+            const response = await fetch(url);
+            const data = await response.json();
+            const catData = data[0];
+            if (catData) {
+                catPicture.src = catData.url;
+                catPicture.style.display = 'block';
+                currentImageId = catData.id;
+            }
+        }
+
+        function upvote() {
+            voteCount++;
+            updateVoteDisplay();
+            sendVote('upvote');
+        }
+
+        function downvote() {
+            voteCount--;
+            updateVoteDisplay();
+            sendVote('downvote');
+        }
+
+        function updateVoteDisplay() {
+            voteCountDisplay.textContent = `Votes: ${voteCount}`;
+        }
+
+        async function sendVote(voteType) {
+            const response = await fetch('https://api.thecatapi.com/v1/votes', { // Adjust to your voting endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': API_KEY // Include your API key if required
+                },
+                body: JSON.stringify({
+                    // 'image_id': catPicture.src.split('/').pop().split('.')[0], // Extract the image ID from the URL if necessary
+                    'image_id': currentImageId,
+                    'value': voteType === 'upvote' ? 1 : -1 // Assuming 1 for upvote and -1 for downvote
+                }),
+            });
+
+            if (response.status !== 201) {
+                console.error('Failed to send vote');
+            } else {
+                const result = await response.json();
+                console.log('Vote successful:', result);
+            }
+        }
+
+        fetchButton.addEventListener('click', () => {
+            const breed = breedInput.value.trim().toLowerCase();
+            fetchCatPicture(breed);
+        });
+
+        // Event listeners for voting
+        upvoteButton.addEventListener('click', upvote);
+        downvoteButton.addEventListener('click', downvote);
+
+        // Fetch a new cat picture every 20 seconds
+        setInterval(() => {
+            const breed = breedInput.value.trim().toLowerCase();
+            fetchCatPicture(breed);
+        }, 20000);
+
+
+    </script>
+</body>
+
+</html>
