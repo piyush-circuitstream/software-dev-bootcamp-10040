@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <button id="fetchCatImage">Fetch a cat image</button>
+        <img src="Fading balls.gif" id="loading" alt="Loading Image" style="display: none;" />
+        <div id="imagePlaceholder"></div>
+    </main>
+
+    <script>
+        //2 ways - 1. one is using onclick on button element & 2. use addEventListner in script        //
+
+        const fetchButton = document.getElementById('fetchCatImage');
+        fetchButton.addEventListener('click', async (event) => {
+            
+            const loading = document.getElementById('loading');
+            //Don't load loading image until button is clicked
+            loading.style.display = 'block';
+
+            const response = await fetch('https://api.thecatapi.com/v1/images/search');
+            const data = await response.json();
+
+            const { url, width, height } = data[0];
+
+            const image = document.createElement('img');
+            image.src = url;
+            image.width = width;
+            image.height = height;
+
+            const imagePlaceholder = document.getElementById('imagePlaceholder');
+            imagePlaceholder.replaceChildren(image);
+
+            loading.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
