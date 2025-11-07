@@ -7,12 +7,12 @@ const qs = require('querystring');
 
 const server = http.createServer((req, res) => {
 
-    //Read the query parameter from the URL (localhost:8080/?month=5)
-    const queryString = req.url.split('?')[1];
+    //Read the query parameter from the URL (http://localhost:8080/?month=5)
+    const queryString = req.url.split('?')[1]; //month=5
     const query = qs.parse(queryString); //month 5
     const monthNumber = query.month;
 
-    const fileName = (monthNumber > 4 & monthNumber < 10) ? 'summer.html' : 'winter.html';
+    const fileName = (monthNumber > 4 & monthNumber < 10) ? 'summer.html' : 'winter.html'; //Ternary Operator
 
     fs.readFile(fileName, (err, data) => {
         if (err) {
