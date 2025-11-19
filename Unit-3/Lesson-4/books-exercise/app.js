@@ -20,13 +20,13 @@ app.get('/books', (req, res) => {
 // Get a specific book by ID
 app.get('/books/:id', (req, res) => {
     const bookId = parseInt(req.params.id);
-    const book = books.find(b => b.id === bookId);
+    const book = books.find(b => b.id === bookId); // undefined => false
 
-    if (!book) {
+    if (!book) { // If the book doesn't exists or book is undefined
         return res.status(404).json({ message: 'Book not found' });
     }
 
-    res.status(200).json(book);
+    return res.status(200).json(book);
 });
 
 // Create a new book
