@@ -20,6 +20,7 @@ const server = http.createServer((req, res) => {
             res.end('File not found');
         }
         res.writeHead(200, { 'Content-Type': 'text/html' });
+        console.log("Calling this API for this pagr");
         res.end(data);
     });
 });

@@ -1,7 +1,6 @@
 {
-  "name": "lesson-2",
+  "name": "express-demo",
   "version": "1.0.0",
-  "description": "This is demo project in class",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -10,6 +9,10 @@
   },
   "author": "Piyush Thummar",
   "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
   "devDependencies": {
     "nodemon": "^3.1.11"
   }
