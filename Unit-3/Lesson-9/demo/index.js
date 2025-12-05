@@ -72,4 +72,75 @@ async function queryBreakfasts() {
 
     console.log(result)
 }
-queryBreakfasts();
+// queryBreakfasts();
+
+// Embedding Document
+async function createOrder() {
+    const orderOne = new Order({
+        orderId: 'ORD12347',
+        customer: {
+            name: 'John Doe 3',
+            email: 'john.doe3@gmail.com',
+            phone: '1234567890'
+        },
+        items: [
+            {
+                itemId: 'ITEM001',
+                name: 'White Sauce Pasta',
+                quantity: 1,
+                price: 12.99
+            },
+            {
+                itemId: 'ITEM002',
+                name: 'Garlic Bread',
+                quantity: 4,
+                price: 5.99
+            }
+        ],
+        paymentMethod: 'cash',
+        totalPrice: 35.95,
+        orderStatus: 'delivered'
+    });
+
+    await orderOne.save();
+}
+
+//Referening (populated) Document
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true }
+});
+
+// Define the schema for an 'Order' document, referencing the 'User' model
+const orderSchema = new mongoose.Schema({
+    totalPrice: { type: Number, required: true },
+    status: { type: String, required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } // Reference to User
+});
+
+// Create the 'User' and 'Order' models
+const User = mongoose.model('User', userSchema);
+const Order = mongoose.model('Order', orderSchema);
+
+// Example of creating a user and an order that references the user
+async function createOrder() {
+    const user = new User({
+        name: 'John Doe',
+        email: 'john.doe@example.com'
+    });
+
+    await user.save();
+
+    const order = new Order({
+        totalPrice: 200,
+        status: 'completed',
+        user: user._id // Referencing the User by its ObjectId
+    });
+
+    await order.save();
+
+    // Populate the 'user' field in the order to get the full user document
+    const populatedOrder = await Order.findOne({ _id: order._id }).populate('user');
+    console.log('Populated Order:', populatedOrder);
+}
+
