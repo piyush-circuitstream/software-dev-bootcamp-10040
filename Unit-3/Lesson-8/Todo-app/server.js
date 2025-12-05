@@ -46,14 +46,22 @@ app.post('/todos', async (req, res) => {
 app.put('/todos/:id', async (req, res) => {
     try {
         const todoId = req.params.id;
-        const { completed } = req.body;
+        const { title, description, completed } = req.body;
         const toBeUpdated = await Todo.findById(todoId);
         if (toBeUpdated) {
-            toBeUpdated.completed = completed;
+            if (title != undefined) {
+                toBeUpdated.title = title;
+            }
+            if (description != undefined) {
+                toBeUpdated.description = description;
+            }
+            if (completed != undefined) {
+                toBeUpdated.completed = completed;
+            }
+
             toBeUpdated.updatedAt = Date.now();
 
             await toBeUpdated.save();
-
             res.status(200).json({ message: 'Todo item updated successfully!', todo: toBeUpdated });
         } else {
             res.status(404).json({ message: 'Todo item not found. Please try again with other item.' });
