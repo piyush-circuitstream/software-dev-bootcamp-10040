@@ -5,9 +5,11 @@ const { Todo } = require('./models/todo');
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+// MIDDLEWARES
+app.use(express.json()); // NOT NEEDED for GET AND DELETE REQUESTS, BUT NEEDED for POST, PATCH AND PUT REQUESTS
 app.use(express.static('public'));
 
+// CONNECT TO MONGODB
 mongoose.connect('mongodb://localhost:27017/todo-app')
     .then(() => {
         console.log('Connected to MongoDB');
