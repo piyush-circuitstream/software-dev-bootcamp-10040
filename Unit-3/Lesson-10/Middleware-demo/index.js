@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
 // SETUP of SERVER
 const PORT = 3000;
@@ -23,17 +24,20 @@ const logger = (req, res, next) => {
 // app.use(requestTime); // ALL ENDPOINTS will use this middleware
 // app.get('/contacts', requestTime); // ONLY GET ENDPOINT for given endpoint
 // app.use('/contacts', requestTime); // ALL HTTP METHODS of given endpoint
-app.use([logger, requestTime]); // MULTIPLE MIDDLEWARES for ALL ENDPOINTS & ALL HTTP METHODS
+// app.use([logger, requestTime]); // MULTIPLE MIDDLEWARES for ALL ENDPOINTS & ALL HTTP METHODS
 // app.use('/contacts', logger);
 // app.use(requestTime);
 
 // MULTIPLE MIDDLEWARES for SPECIFIC ENDPOINT - series of middleware functions
-app.get('/', requestTime, logger, (req, res) => {
-    res.send('Welcome to the Home Page!');
-});
+// app.get('/', requestTime, logger, (req, res) => {
+//     res.send('Welcome to the Home Page!');
+// });
 
+// ROUTER LEVEL MIDDLEWARES
 // const router = express.Router();
 // router.use(logger);
+
+app.use(morgan("combined")); // USING THIRD PARTY MIDDLEWARE
 
 // SOME APIS
 app.get('/', (req, res) => {
@@ -45,7 +49,8 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/contacts', (req, res) => {
-    res.send('This is the Contact Page.');
+    throw new Error('Simulated error in /contacts route');
+    // res.send('This is the Contact Page.');
 });
 
 app.post('/contacts', (req, res) => {
@@ -58,4 +63,10 @@ app.delete('/contacts', (req, res) => {
 
 app.get('/user', (req, res) => {
     res.send('This is the User Page.');
+});
+
+// ERROR HANDLING MIDDLEWARE
+app.use((error, req, res, next) => {
+    // console.error(err.stack);
+    res.status(500).send({ message: 'Something broke! Please try again later.', error: error.message });
 });
