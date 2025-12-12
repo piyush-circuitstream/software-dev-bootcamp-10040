@@ -17,14 +17,14 @@ const requestTime = (req, res, next) => {
 
 const logger = (req, res, next) => {
     console.log(`Got new request: ${req.method} ${req.originalUrl}`);
-    next();
+    next('error'); // passing error to error handling middleware
 }
 
 // APPLICATION LEVEL MIDDLEWARES
 // app.use(requestTime); // ALL ENDPOINTS will use this middleware
 // app.get('/contacts', requestTime); // ONLY GET ENDPOINT for given endpoint
 // app.use('/contacts', requestTime); // ALL HTTP METHODS of given endpoint
-// app.use([logger, requestTime]); // MULTIPLE MIDDLEWARES for ALL ENDPOINTS & ALL HTTP METHODS
+app.use([logger, requestTime]); // MULTIPLE MIDDLEWARES for ALL ENDPOINTS & ALL HTTP METHODS
 // app.use('/contacts', logger);
 // app.use(requestTime);
 
@@ -66,7 +66,7 @@ app.get('/user', (req, res) => {
 });
 
 // ERROR HANDLING MIDDLEWARE
-app.use((error, req, res, next) => {
-    // console.error(err.stack);
-    res.status(500).send({ message: 'Something broke! Please try again later.', error: error.message });
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send({ message: 'Something broke! Please try again later.', err: err.message });
 });
