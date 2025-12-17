@@ -23,11 +23,11 @@ document.getElementById('register-form').addEventListener('submit', async functi
         const error = document.createElement('p');
         error.style.color = 'red';
         error.textContent = data;
-        username.value = '';
-        password.value = '';
         document.getElementById('error-container').innerHTML = '';
         document.getElementById('error-container').appendChild(error);
     }
+    username.value = '';
+    password.value = '';
 });
 
 // Add event listener to login form submission

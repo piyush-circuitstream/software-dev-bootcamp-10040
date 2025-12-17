@@ -24,6 +24,21 @@ passport.use(new LocalStrategy(async function verify(username, password, callbac
     }
 }));
 
+passport.serializeUser(function (user, cb) {
+    process.nextTick(function () {
+        return cb(null, {
+            id: user._id,
+            username: user.username
+        });
+    });
+});
+
+passport.deserializeUser(function (user, cb) {
+    process.nextTick(function () {
+        return cb(null, user);
+    });
+});
+
 // Register a New User
 router.post('/register', async (req, res, next) => {
     if (!req.body.username || !req.body.password) {
