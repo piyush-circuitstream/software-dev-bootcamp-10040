@@ -54,8 +54,10 @@ router.post('/register', async (req, res, next) => {
                 return next({ message: 'Error while creating user. Please try again later.' });
             }
 
+            // This is until the session is implemented
             res.status(201).json({ message: 'User registered successfully! Please login to continue.' });
 
+            // This would work after implementing sessions
             // req.login(user, function (err) {
             //     if (err) { return next(err); }
             //     res.redirect('/app');
@@ -78,7 +80,7 @@ router.post('/login', passport.authenticate('local', {
 router.post('/logout', function (req, res, next) {
     req.logout(function (err) {
         if (err) { return next(err); }
-        res.redirect('/app/login.html');
+        res.redirect('/app/login.html'); //res.send()
     });
 });
 

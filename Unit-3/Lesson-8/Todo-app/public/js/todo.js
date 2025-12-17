@@ -143,4 +143,18 @@ document.addEventListener('DOMContentLoaded', function () {
         // Set editingItemId for edit operation
         editingItemId = id;
     }
+
+    const logoutBtn = document.getElementById('logout-button');
+    logoutBtn.addEventListener('click', async function (event) {
+        event.preventDefault();
+
+        const response = await fetch('../auth/logout', {
+            method: 'POST'
+        });
+
+        if (response.redirected) {
+            window.location.href = response.url;
+        }
+
+    });
 });
