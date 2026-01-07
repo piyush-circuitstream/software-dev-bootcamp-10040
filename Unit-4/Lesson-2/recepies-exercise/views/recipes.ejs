@@ -1,0 +1,17 @@
+<%- include('./partials/header') %>
+
+<body>
+  <h1>Recipe Ingredients</h1>
+
+  <% for (let i = 0; i < recipes.length; i++) { %>
+  <div class="recipe">
+    <h2><%= recipes[i].name %></h2>
+    <ul>
+      <% for (let j = 0; j < recipes[i].ingredients.length; j++) { %>
+      <li><%= recipes[i].ingredients[j] %></li>
+      <% } %>
+    </ul>
+  </div>
+  <% } %>
+</body>
+<%- include('./partials/footer') %>
