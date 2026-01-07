@@ -1,17 +1,18 @@
+<!-- For loop for going through the recepies  -->
+<!-- Syntax for loop - https://www.geeksforgeeks.org/how-to-loop-through-json-in-ejs/ -->
 <%- include('./partials/header') %>
+    <h1 class=".text-primary-emphasis">Recipes</h1>
+    <% for (let i=0; i < recipes.length; i++) { %>
+        <h2>
+            <%= recipes[i].name %>
+        </h2>
+        <ul>
+            <% for (let j=0; j < recipes[i].ingredients.length; j++) { %>
+                <li>
+                    <%= recipes[i].ingredients[j] %>
+                </li>
+                <% } %>
+        </ul>
+        <% } %>
 
-<body>
-  <h1>Recipe Ingredients</h1>
-
-  <% for (let i = 0; i < recipes.length; i++) { %>
-  <div class="recipe">
-    <h2><%= recipes[i].name %></h2>
-    <ul>
-      <% for (let j = 0; j < recipes[i].ingredients.length; j++) { %>
-      <li><%= recipes[i].ingredients[j] %></li>
-      <% } %>
-    </ul>
-  </div>
-  <% } %>
-</body>
-<%- include('./partials/footer') %>
+            <%- include('./partials/footer') %>
