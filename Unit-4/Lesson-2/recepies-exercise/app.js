@@ -4,7 +4,7 @@ const ejs = require('ejs');
 
 app.set('view engine', 'ejs');
 
-const recipes = [
+const recipesList = [
     { name: 'Pasta Carbonara', ingredients: ['Spaghetti', 'Eggs', 'Parmesan', 'Bacon'] },
     { name: 'Vegetarian Stir Fry', ingredients: ['Tofu', 'Broccoli', 'Carrots', 'Soy Sauce'] },
     { name: 'Chicken Alfredo', ingredients: ['Chicken', 'Fettuccine', 'Cream', 'Garlic'] },
@@ -13,7 +13,7 @@ const recipes = [
 ];
 
 app.get('/', (req, res) => {
-    res.render('recipes', { recipes }); // recepes in first argument is ejs filename
+    res.render('recipes', { recipes: recipesList }); // recepes in first argument is ejs filename
 });
 
 const PORT = 3000;
