@@ -41,7 +41,9 @@
                 </div>
                 <div class="toast-body">
                     <p id="toast-message">
-                        <!-- Placeholder for toast to display error message -->
+                        <% if(locals.message) { %>
+                            <%= message %>
+                                <% } %>
                     </p>
                 </div>
             </div>
