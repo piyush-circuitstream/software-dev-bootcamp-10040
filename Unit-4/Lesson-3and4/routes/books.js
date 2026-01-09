@@ -53,11 +53,27 @@ router.get('/edit/:id', async (req, res) => {
 });
 
 // Update a book
-router.put('/edit/:id', (req, res) => {
-});
+router.post('/edit/:id', async (req, res) => {
+    try {
+        const tags = req.body.tags.split(',')
+        req.body.tags = tags
+        await Book.updateOne({ _id: req.params.id }, req.body)
+        const books = await Book.find()
+        res.render('books', { books, message: `Book updated` })
+    } catch (error) {
+        res.render('form', { title: 'Edit a new book', action: `/edit/${req.params.id}`, message: `Hit an error while updating the book. ${error}` })
+    }
+})
 
 // Delete a book
-router.delete('/delete/:id', (req, res) => {
-});
+router.post('/delete/:id', async (req, res) => {
+    try {
+        await Book.deleteOne({ _id: req.params.id })
+        res.redirect('/')
+    } catch (error) {
+        const books = await Book.find()
+        res.render('books', { books, message: `Hit an error while deleting the book. ${error}` })
+    }
+})
 
 module.exports = router;
