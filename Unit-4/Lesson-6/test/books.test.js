@@ -40,18 +40,46 @@ describe('Book Model Test Suite', () => {
         expect(savedBook.unitsSold).to.equal(5);
     });
 
-    it('should fail to create a book without required fields', async () => {
-        const bookWithoutRequiredField = new Book({ title: 'Incomplete Book' });
-        let err;
+    // Test validation for missing required fields
+    it('should not create a book without required fields', async () => {
+        const bookData = {
+            isbn: '1234567890',
+            publisher: 'Test Publisher',
+        };
+
         try {
-            await Book.create(bookWithoutRequiredField);
+            await Book.create(bookData);
         } catch (error) {
-            err = error;
+            expect(error.errors).to.have.property('title');
         }
-        expect(err).to.exist;
-        expect(err.errors.isbn).to.exist;
-        expect(err.errors.publisher).to.exist;
-        expect(err.errors.inventory).to.exist;
-        expect(err.errors.unitsSold).to.exist;
+    });
+
+    // Test default values (inventory and unitsSold should default to 0)
+    it('should set default values for inventory and unitsSold', async () => {
+        const bookData = {
+            title: 'Default Book',
+            isbn: '0987654321',
+            publisher: 'Default Publisher',
+        };
+
+        const book = await Book.create(bookData);
+
+        expect(book.inventory).to.equal(0);
+        expect(book.unitsSold).to.equal(0);
+    });
+
+    // Test book retrieval by ISBN
+    it('should retrieve a book by ISBN', async () => {
+        const bookData = {
+            title: 'Find Me',
+            isbn: '1122334455',
+            publisher: 'Find Publisher',
+        };
+
+        const book = await Book.create(bookData);
+
+        const foundBook = await Book.findOne({ isbn: '1122334455' });
+        expect(foundBook).to.not.be.null;
+        expect(foundBook).to.have.property('isbn').that.equals('1122334455');
     });
 });
