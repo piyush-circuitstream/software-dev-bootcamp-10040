@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); //ADDED CHNAGE
+const { Movie, Review } = require('./models'); //ADDED CHANGE
+const { resolveObjectURL } = require('buffer');
+const { error } = require('console');
 
 const app = express();
 
@@ -10,36 +13,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const movies = [
-    { id: 1, title: 'Movie Title 1', thumbnail: '/placeholder.jpg', rating: 4, description: "Description for Movie Title 1" },
-    { id: 2, title: 'Movie Title 2', thumbnail: '/placeholder.jpg', rating: 5, description: "Description for Movie Title 2" },
-    { id: 3, title: 'Movie Title 3', thumbnail: '/placeholder.jpg', rating: 3, description: "Description for Movie Title 3" }
-];
+app.get('/', async (req, res) => { //ADDED CHANGE
+    try {
+        const movies = await Movie.find(); //ADDED CHANGE
+        res.render('index', { movies: movies });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Error fetching movies! Please try again later.' });
+    }
 
-const reviews = {
-    1: [
-        { reviewer: "John Doe", comment: "Great movie!", rating: 4 },
-        { reviewer: "Jane Smith", comment: "Enjoyed it a lot.", rating: 5 }
-    ],
-    2: [
-        { reviewer: "Alice Brown", comment: "Fantastic!", rating: 5 }
-    ],
-    3: []
-};
-
-app.get('/', (req, res) => {
-    res.render('index', { movies: movies });
 });
 
-app.get('/movie/:id', (req, res) => {
-    const movieId = parseInt(req.params.id, 10);
-    const movie = movies.find(m => m.id === movieId);
-    const movieReviews = reviews[movieId] || [];
+app.get('/movie/:id', async (req, res) => {
 
-    if (movie) {
-        res.render('movie-detail', { movie: movie, reviews: movieReviews });
-    } else {
-        res.status(404).send('Movie not found');
+    try {
+        const movie = await Movie.findOne({ _id: req.params.id });
+        const movieReviews = await Review.find({ movie: req.params.id });
+
+        if (movie) {
+            res.render('movie-detail', { movie: movie, reviews: movieReviews });
+        } else {
+            res.status(404).send('Movie not found');
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Error fetching a movie! Please try again later.' });
     }
 });
 
@@ -47,16 +45,31 @@ app.get('/submit-review', (req, res) => {
     res.render('submit-review');
 });
 
-app.post('/submit-review', (req, res) => {
+app.post('/submit-review', async (req, res) => {
     const { movieId, reviewer, rating, comment } = req.body;
-    const newReview = { reviewer, rating: parseInt(rating, 10), comment };
+    try {
+        const newReview = await Review.create({
+            movie: movieId,
+            reviewer,
+            rating: parseInt(rating, 10),
+            comment
+        });
 
-    if (!reviews[movieId]) {
-        reviews[movieId] = [];
+        // Now calculate the new average rating for the movie
+        const reviews = await Review.find({ movie: movieId });
+
+        // Calculate the new average rating
+        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+        const averageRating = totalRating / reviews.length;
+
+        // Update the movie's rating field with the new average
+        await Movie.findByIdAndUpdate(movieId, { rating: averageRating });
+
+        res.redirect(`/movie/${movieId}`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Error submitting a review! Please try again later.' });
     }
-
-    reviews[movieId].push(newReview);
-    res.redirect(`/movie/${movieId}`);
 });
 
 //ADD DB CONNECTION HERE
