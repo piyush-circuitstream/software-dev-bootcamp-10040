@@ -65,5 +65,10 @@ const linkedlist = new LinkedList(node1);
 
 console.log(linkedlist);
 console.log("Size of linked list:", linkedlist.size());
+
+console.log("First Node:", linkedlist.getFirst());
+console.log("Last Node:", linkedlist.getLast());
+console.log("2nd Node:", linkedlist.getNthNode(1));
+
 linkedlist.clear();
 console.log("Linked list after clearing:", linkedlist.size());
