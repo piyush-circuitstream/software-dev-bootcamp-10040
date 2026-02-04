@@ -18,15 +18,31 @@ class LinkedList {
     }
 
     getFirst() {
-        // Returns the first node in the linked list
+        return this.head;
     }
 
     getLast() {
-        // Returns the last node in the linked list
+        let node = this.head;
+
+        if (node) {
+            while (node.next) {
+                node = node.next;
+            }
+        }
+
+        return node;
     }
 
     getNthNode(n) {
-        // Returns the nth node in the linked list
+        let count = 0;
+        let node = this.head;
+
+        while (node && count !== n) {
+            count++;
+            node = node.next;
+        }
+
+        return node;
     }
 }
 
