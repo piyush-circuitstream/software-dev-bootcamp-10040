@@ -16,6 +16,18 @@ class LinkedList {
     clear() {
         this.head = null;
     }
+
+    getFirst() {
+        // Returns the first node in the linked list
+    }
+
+    getLast() {
+        // Returns the last node in the linked list
+    }
+
+    getNthNode(n) {
+        // Returns the nth node in the linked list
+    }
 }
 
 class Node {
