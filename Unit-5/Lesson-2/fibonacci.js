@@ -15,5 +15,5 @@ function getFibonacciSequence(x) {
 
 
 let n = 5;
-console.log(`Fibonacci of ${n} is ${fibonacci(n)}`);
+console.log(`Fibonacci of ${n} is ${fibonacci(n)}`); 
 console.log(`Fibonacci sequence up to ${n} terms:`, getFibonacciSequence(n));
