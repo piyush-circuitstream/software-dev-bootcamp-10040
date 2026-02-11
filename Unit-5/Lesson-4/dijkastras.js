@@ -21,10 +21,10 @@ class Graph {
 
         // Set the distance of the start node to 0 and all other nodes to infinity
         for (let i = 0; i < this.nodes.length; i++) {
-            if (nodes[i] == startNode) {
-                distances[nodes[i]] = 0;
+            if (this.nodes[i] == startNode) {
+                distances[this.nodes[i]] = 0;
             } else {
-                distances[nodes[i]] = Infinity;
+                distances[this.nodes[i]] = Infinity;
             }
         }
 
@@ -51,21 +51,22 @@ class Graph {
 
         console.log(distances);
 
-        findClosestUnvisitedNode(distances, visited) {
-            let closetUnvisitedNode = null;
-            let shortestDistance = Infinity;
+    }
 
-            for (let currentNode in distances) {
-                let distance = distances[currentNode];
+    findClosestUnvisitedNode(distances, visited) {
+        let closetUnvisitedNode = null;
+        let shortestDistance = Infinity;
 
-                if (distance < shortestDistance && !visited.includes(currentNode)) {
-                    closetUnvisitedNode = currentNode;
-                    shortestDistance = distance;
-                }
+        for (let currentNode in distances) {
+            let distance = distances[currentNode];
+
+            if (distance < shortestDistance && !visited.includes(currentNode)) {
+                closetUnvisitedNode = currentNode;
+                shortestDistance = distance;
             }
-
-            return closetUnvisitedNode;
         }
+
+        return closetUnvisitedNode;
     }
 }
 
