@@ -6,21 +6,34 @@ class TreeNode {
     }
 
     insert(value) {
-        // Implement the insert method to add a new value to the binary tree
+        // if value < current node, put it on left-subtree, otherwise right-subtree
+        if (value < this.value) {
+            if (this.left == null) {
+                this.left = new TreeNode(value);
+            } else {
+                this.left.insert(value);
+            }
+        } else {
+            if (this.right == null) {
+                this.right = new TreeNode(value);
+            } else {
+                this.right.insert(value);
+            }
+        }
+
     }
 
     printInOrder() {
-        // Implement the printInOrder method to print the values of the tree in order
 
         //Recursive call for left-subtree
-        if (this.left) {
+        if (this.left !== null) {
             this.left.printInOrder();
         }
         //print the value of the current node
         console.log(this.value, " ");
 
         //Recursive call for right-subtree
-        if (this.right) {
+        if (this.right !== null) {
             this.right.printInOrder();
         }
     }
@@ -29,6 +42,10 @@ class TreeNode {
 const root = new TreeNode(10);
 root.insert(5);
 root.insert(15);
+root.insert(3);
+root.insert(12);
+root.insert(13);
+root.insert(18);
 
 
 root.printInOrder();  // Output should be: 5, 10, 15 (in order)
