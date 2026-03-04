@@ -1,5 +1,7 @@
-export function Button({ text }) {
+export function Button({ text, name, onClick }) {
     return (
-        <button>{text}!!</button>
+        <button name={name} onClick={onClick}>
+            {text}!!
+        </button>
     );
 }

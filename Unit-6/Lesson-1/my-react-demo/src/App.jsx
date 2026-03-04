@@ -13,6 +13,19 @@ function App() {
     city: "Calgary"
   };
 
+  let clickHandler = () => {
+    console.log("Button Clicked!");
+  }
+
+  let addContent = false;
+  let content;
+
+  if (count < 5) {
+    content = <Button text="Less Content!" onClick={() => console.log("Less")} />;
+  } else {
+    content = <Button text="More Content!" onClick={() => console.log("More")} />;
+  }
+
   return (
     <>
       <div>
@@ -33,7 +46,19 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <Button text="Click Me!" />
+        <Button text="Click Me!" onClick={clickHandler} />
+
+        {/* Ternary Conditional Check */}
+        {count < 5 ? (<Button text="Add Content!" onClick={() => console.log("Added")} />) :
+          (<Button text="Update Content!" onClick={() => console.log("Updated")} />)
+        }
+
+        {/* Logical && Conditional Check */}
+        {count >= 5 && <Button text="Remove Content!" onClick={() => console.log("Removed")} />}
+
+        {/* If-Else Conditional Check */}
+        {content}
+
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
