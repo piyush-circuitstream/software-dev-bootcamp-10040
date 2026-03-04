@@ -17,7 +17,18 @@ function App() {
     console.log("Button Clicked!");
   }
 
-  let addContent = false;
+  let employees = [
+    { id: 1, name: "Alice", department: "HR" },
+    { id: 2, name: "Bob", department: "Engineering" },
+    { id: 3, name: "Charlie", department: "Marketing" }
+  ];
+
+  let nameOfEmployees = [];
+  for (let e of employees) {
+    nameOfEmployees.push(<h4 key={e.id}>{e.name}</h4>);
+  }
+
+
   let content;
 
   if (count < 5) {
@@ -58,6 +69,12 @@ function App() {
 
         {/* If-Else Conditional Check */}
         {content}
+
+        {/* rendering the list of employees */}
+        {employees.map(e => <p key={e.id}>{e.name} - {e.department}</p>)}
+
+        {/* rendering the list of employee names */}
+        {nameOfEmployees}
 
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
