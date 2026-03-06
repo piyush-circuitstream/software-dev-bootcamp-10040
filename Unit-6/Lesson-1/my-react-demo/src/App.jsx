@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { Button } from './components/Button'
+import Button from './components/Button'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,8 +13,9 @@ function App() {
     city: "Calgary"
   };
 
-  let clickHandler = () => {
-    console.log("Button Clicked!");
+  let clickHandler = (user = 'User') => {
+    // console.log("Button Clicked!");
+    alert(`Button Clicked! - ${user}`);
   }
 
   let employees = [
@@ -32,7 +33,7 @@ function App() {
   let content;
 
   if (count < 5) {
-    content = <Button text="Less Content!" onClick={() => console.log("Less")} />;
+    content = <Button text={123} onClick={() => console.log("Less")} />;
   } else {
     content = <Button text="More Content!" onClick={() => console.log("More")} />;
   }
@@ -57,7 +58,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <Button text="Click Me!" onClick={clickHandler} />
+        <Button />
 
         {/* Ternary Conditional Check */}
         {count < 5 ? (<Button text="Add Content!" onClick={() => console.log("Added")} />) :
