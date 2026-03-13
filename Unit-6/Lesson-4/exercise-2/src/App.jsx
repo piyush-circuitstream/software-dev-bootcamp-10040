@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import './App.css'
+import styled from 'styled-components';
+import { css } from '@emotion/css';
+import Button from './components/Button';
+import SubmitButton from './components/SubmitButton';
 
 function App() {
 
@@ -51,10 +55,30 @@ function App() {
   }
 
 
+  const redTitle = {
+    color: 'red',
+  }
+
+  const CustomTitle = styled.h1`
+    color: purple;
+    font-size: 30px;
+    text-align: center;
+  `;
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <h1 style={{ color: 'blue' }}>Inline Style</h1>
+      <h1 style={redTitle}>Inline Style with variable</h1>
+      <h1 className='greenyellow'>External Style</h1>
+
+      <CustomTitle>Styled Component(CSS-in-JS)</CustomTitle>
+
+      <h1 className={css`color: orange;`}>Style with Emotion(CSS-in-JS)</h1>
+
+      <Button />
+      <SubmitButton />
+
+      {/* <form onSubmit={handleSubmit}>
         <label>Username:
           <input
             type="text"
@@ -72,7 +96,7 @@ function App() {
         {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
         {errors.firstname && <p style={{ color: "red" }}>{errors.firstname}</p>}
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
     </>
   )
 }
