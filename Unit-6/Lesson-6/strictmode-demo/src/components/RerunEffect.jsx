@@ -19,7 +19,7 @@ function RerunEffect() {
             clearInterval(timer2);
         }
 
-    }, [count1, count2]);
+    }, []);
 
     return (
         <>
