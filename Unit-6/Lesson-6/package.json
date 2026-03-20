@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@rolldown/binding-win32-x64-msvc": "^0.15.1"
-  }
-}
