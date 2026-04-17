@@ -23,7 +23,9 @@ export default function CounterProvider({ children }) {
     const [state, dispatch] = useReducer(counterReducer, initialState);
 
     return (
-        <CounterContext.Provider value={{ counterState: state, counterDispatch: dispatch }}>
+        <CounterContext.Provider value={{ 
+            counterState: state, 
+            counterDispatch: dispatch }}>
             {children}
         </CounterContext.Provider>
     );

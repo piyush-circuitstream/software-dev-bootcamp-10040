@@ -1,5 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
@@ -37,7 +40,7 @@ app.use(passport.session());
 
 
 // CONNECT TO MONGODB
-mongoose.connect('mongodb://localhost:27017/todo-app')
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Connected to MongoDB');
     }).catch(err => {

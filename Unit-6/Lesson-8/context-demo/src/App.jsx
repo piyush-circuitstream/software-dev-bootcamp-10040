@@ -18,7 +18,6 @@ function App() {
         <DecrementButton />
         <ResetButton />
       </CounterProvider>
-
     </>
   )
 }
