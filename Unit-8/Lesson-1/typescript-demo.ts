@@ -61,7 +61,7 @@ let anyValue: any = "Hello";
 anyValue = 42;
 anyValue = true;
 anyValue = [1, 2, 3];
-anyValue.map((c) => c + 1);
+// anyValue.map((c) => c + 1);
 
 // unknown type
 let unknownValue: unknown = "Hello";
@@ -69,4 +69,4 @@ if (typeof unknownValue === "string") {
     console.log(unknownValue.toUpperCase());
 }
 unknownValue = [1, 2, 3];
-unknownValue.map((c) => c + 1); // Error: Object is of type 'unknown'.
+// unknownValue.map((c) => c + 1); // Error: Object is of type 'unknown'.

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "demo expo app",
-    "slug": "demo-expo-app",
+    "name": "router-demo",
+    "slug": "router-demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "demoexpoapp",
+    "scheme": "routerdemo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
